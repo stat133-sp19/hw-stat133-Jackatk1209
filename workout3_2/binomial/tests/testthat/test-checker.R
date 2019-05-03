@@ -9,7 +9,7 @@ test_that("check_prob works as intended", {
 })
 
 test_that("check_trials works as intended", {
-  expect_true(check_trials(69)) #non negative integer input
+  expect_true(check_trials(10)) #non negative integer input
   expect_error(check_trials(-1)) #error for negative integer input
   expect_error(check_trials(0.5)) #error for non-integer input
   expect_length(check_trials(10),1) #expect length 1 result
