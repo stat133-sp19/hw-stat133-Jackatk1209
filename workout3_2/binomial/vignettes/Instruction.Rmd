@@ -1,0 +1,113 @@
+---
+title: "Binomial package"
+author: "Jack Tseng"
+date: "5-1-19"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Binomial}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, echo = FALSE, message = FALSE}
+knitr::opts_chunk$set(collapse = T, comment = "#>")
+library(binomial)
+```
+
+## Binomial functions
+The package '"binomial"' is an elementary implementation of various ways of manipulating binomial variables and creating graphical summaries of that data. 
+
+## using binomial functions
+First the user must decide on a trials, probability, and success argument. Then, feeding it into the binomial functions can create a bar graph, or a cumulative line graph displaying possibilities of each scenario (different number of success in given trials) happening. 
+
+## getting started
+One way to take the first step is to use bin_choose, which gives the number of different combinations 'k' successes can take place in 'n' trials.
+
+```{r}
+#number of ways of getting 7 successes in 10 trials
+bin_choose(10,7)
+```
+
+## involving probability
+Then, we can use bin_probability, which calculates the probability of a specific number of successes happening in a given number of trials and a given probability of success
+
+```{r}
+# probability of getting 7 successes in 10 trials with 0.3 probability of success
+bin_probability(7,10,0.3)
+```
+
+## putting findings into a distribution
+Following that, we can calculate the binomial distribution, taking form in a data frame with the 'bindis' and 'data.frame' class. This allows for a more comprehensive view of the specific binomial scenario.
+
+```{r}
+bin_distribution(trials = 10, prob = 0.3)
+```
+
+## visualizing the distribution in a bar plot
+Using a plot function, we can visualize above distribution.
+
+```{r}
+dis1 <- bin_distribution(trials = 10, prob = 0.3)
+plot(dis1)
+```
+
+## Cumulative binomials
+There is another functionality in this package, bin_cumulative(), which calculates the cumulative probability of a binomial distribution. The output is a data frame with class 'bincum' and 'data.frame'.
+
+```{r}
+bin_cumulative(10,0.3)
+```
+
+## visualizing the distribution in a line graph
+Using a line graph is more appropriate for cumulative probability, as it can better show direct changes compared to bar graphs.
+
+```{r}
+dis2 <- bin_cumulative(10,0.3)
+plot(dis2)
+```
+
+## Binomial variables
+the 'bin_variable' function prints out the parameters of a binomial variable with class 'binvar'. 
+
+```{r}
+bin_variable(10,0.3)
+```
+
+## Tying everything together
+Using the 'summary()' function, we can obtain a summary of the variable, featuring mean, mode, skewness, kurtosis, and variance in a basic format.
+
+```{r}
+bin1 <- bin_variable(10,0.3)
+summary(bin1)
+```
+
+## breakdown of what the other functions do
+
+'bin_mean()' calculates the mean of the binomial distribution
+
+```{r}
+bin_mean(10,0.3)
+```
+
+'bin_variance()' calculates the varaince of the binomial distribution
+
+```{r}
+bin_variance(10,0.3)
+```
+
+'bin_mode()' calculates the mode of the binomial distribution
+
+```{r}
+bin_mode(10,0.3)
+```
+
+'bin_skewness()' calculates the skewness of the binomial distribution
+```{r}
+bin_skewness(10,0.3)
+```
+
+'bin_kurtosis()' calculates the kurtosis of the binomial distribution
+```{r}
+bin_kurtosis(10,0.3)
+```
+

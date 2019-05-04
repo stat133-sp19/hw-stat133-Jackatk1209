@@ -1,5 +1,5 @@
 #' @title bin_var
-#' @description returns binomial random variable 
+#' @description returns binomial random variable
 #' @param trial
 #' @param prob
 #' @return list with number of trials and probability of success
@@ -10,44 +10,48 @@
 #'# summarize
 #'summary(bin)
 
-bin_variable <- function(trials,prob){
+bin_variable = function(trials, prob) {
   check_trials(trials)
   check_prob(prob)
-  x = list(trials,prob)
-  class(x) <- "binvar"
-  return(x)
+  object = list(trials = trials, prob = prob)
+  class(object) = "binvar"
+  return(object)
 }
 
-print.binvar <- function(x){
-  cat('"Binomial Variable"',sep = '\n\n')
-  cat("Parameters",sep = '\n')
-  cat("- number of trials: ",x[[1]],sep = '\n')
-  cat("- prob of success: ",x[[2]],sep = '\n')
+#' @export
+print.binvar = function(x, ...) {
+  cat('"Binomial Variable"\n\n')
+  cat('Parameters: \n')
+  cat(sprintf('- number of trials: %s', x$trials))
+  cat(sprintf('\n- prob of success: %s', x$prob))
 }
 
-summary.binvar <- function(x){
-  x<-as.numeric(x)
-  trials <- x[1]
-  prob <- x[2]
-  mean <- aux_mean(trials,prob)
-  variance <- aux_variance(trials,prob)
-  mode <- aux_mode(trials,prob)
-  skewness <- aux_skewness(trials,prob)
-  kurtosis <- aux_kurtosis(trials,prob)
-  a <- list(trials,prob,mean,variance,mode,skewness,kurtosis)
-  class(a) <- "summary.binvar"
-  return(a)
+#' @export
+summary.binvar = function(x, ...) {
+  a = data.frame(
+    trials = x$trials,
+    prob = x$prob,
+    mean = aux_mean(x$trials, x$prob),
+    variance = aux_variance(x$trials, x$prob),
+    mode = aux_mode(x$trials, x$prob),
+    skewness = aux_skewness(x$trials, x$prob),
+    kurtosis = aux_kurtosis(x$trials, x$prob)
+  )
+  object = list(dat = a)
+  class(object) = "summary.binvar"
+  object
 }
 
-print.summary.binvar <- function(x){
-  cat('"Summary Binomial"',sep = '\n\n')
-  cat("Parameters",sep = '\n')
-  cat("- number of trials: ",x[[1]],sep = '\n')
-  cat("- prob of success: ",x[[2]],sep = '\n\n')
-  cat("Measures",'\n')
-  cat("- mean: ",x$mean,'\n')
-  cat("- variance: ",x$variance,'\n')
-  cat("- mode: ",x$mode,'\n')
-  cat("- skewness: ",x$skewness,'\n')
-  cat("- kurtosis: ",x$kurtosis,'\n')
+#' @export
+print.summary.binvar = function(x, ...) {
+  cat('Summary Binomial\n\n')
+  cat('Parameters: \n')
+  cat(sprintf('- number of trials: %s', x$dat$trials))
+  cat(sprintf('\n- prob of success: %s', x$dat$prob))
+  cat('\n\n Measures: \n')
+  cat(sprintf('- mean: %s', x$dat$mean))
+  cat(sprintf('\n- variance: %s', x$dat$variance))
+  cat(sprintf('\n- mode: %s', x$dat$mode))
+  cat(sprintf('\n- skewness: %s', x$dat$skewness))
+  cat(sprintf('\n- kurtosis: %s', x$dat$kurtosis))
 }

@@ -21,6 +21,6 @@ bin_cumulative <- function(trials,prob){
 
 #' @export
 library(ggplot2)
-plot.bincum <- function(d){
-  ggplot(d, aes(x=d$success, y=d$cumulative))+geom_line()+xlab("Successes")+ylab("Probability")
+plot.bincum <- function(p,...){
+  plot(x = p[,1], y = p[,3], type = "b", xlab = "# of success", ylab = "probability")
 }

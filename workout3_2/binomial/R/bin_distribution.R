@@ -17,8 +17,6 @@ bin_distribution <- function(trials,prob) {
 }
 
 #' @export
-plot.bindis <- function(p){
-  library(ggplot2)
-  ggplot(p,aes(x=p$success,y=p$probability))+geom_bar(stat="identity")+xlab("successes")+ylab("probability")
-  
+plot.bindis <- function(p,...){
+  barplot(height = p[,2], xlab = "# of success", ylab = "Probability")
 }
